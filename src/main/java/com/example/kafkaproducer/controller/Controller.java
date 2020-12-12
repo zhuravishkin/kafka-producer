@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("kafka")
 public class Controller {
-    private KafkaTemplate<String, User> kafkaTemplate;
-    private static final String TOPIC = "test";
+    private final KafkaTemplate<String, User> kafkaTemplate;
+    private static final String TOPIC = "src-topic";
 
     public Controller(KafkaTemplate<String, User> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
@@ -28,7 +28,7 @@ public class Controller {
     @GetMapping(path = "/publish/{message}")
     public ResponseEntity<PublishingStatus> getEmail(@PathVariable("message") String message) {
         ListenableFuture<SendResult<String, User>> listenableFuture = kafkaTemplate
-                .send(TOPIC, new User(message, "John", 33));
+                .send(TOPIC, new User(message, "John", "Wick", 100, System.currentTimeMillis()));
         listenableFuture.addCallback(new ListenableFutureCallback<SendResult<String, User>>() {
             @Override
             public void onSuccess(SendResult<String, User> stringUserSendResult) {
@@ -40,12 +40,6 @@ public class Controller {
             public void onFailure(Throwable throwable) {
                 log.info("Unable to send message=[" + message + "] due to : " + throwable.getMessage());
             }
-
-//            @Override
-//            public void onSuccess(SendResult<String, String> stringStringSendResult) {
-//                log.info("Sent message = [" + message + "] with offset = [" +
-//                        stringStringSendResult.getRecordMetadata().offset() + "]");
-//            }
         });
         return new ResponseEntity<>(new PublishingStatus(), HttpStatus.OK);
     }
