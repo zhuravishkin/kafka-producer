@@ -2,27 +2,21 @@ package com.example.kafkaproducer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class User {
     @JsonProperty("phone_number")
-    private String phoneNumber;
+    private final String phoneNumber;
 
     @JsonProperty("first_name")
-    private String firstName;
+    private final String firstName;
 
     @JsonProperty("sur_name")
-    private String surName;
+    private final String surName;
 
     @JsonProperty("balance")
-    private Integer balance;
+    private final Integer balance;
 
     @JsonProperty("event_time")
-    private Long eventTime;
+    private final Long eventTime;
 }
