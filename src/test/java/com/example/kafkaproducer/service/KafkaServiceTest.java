@@ -15,6 +15,6 @@ class KafkaServiceTest {
 
     @Test
     void sendMessage() {
-        kafkaService.sendMessage("message");
+        kafkaService.sendMessage();
     }
 }

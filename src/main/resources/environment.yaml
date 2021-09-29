@@ -1,0 +1,7 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_ADDRESS:localhost:9092}
+    group-id: ${GROUP_ID:consumer}
+    num-threads: ${NUM_OF_THREADS:3}
+    topic:
+      out: ${out_TOPICS:src}
